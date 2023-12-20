@@ -18,10 +18,38 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  font-family: 'Work Sans', sans-serif !important;
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+/* Ganti warna header kolom */
+/* Contoh menggunakan !important */
+.ant-table .ant-table-thead > tr > th {
+  background-color: #8A9F5F !important;
+  color: #FDFDFD !important;
+  font-family: 'Work Sans', sans-serif;
+}
+
+
+/* Ganti warna isi baris */
+.ant-table-tbody > tr > td {
+  background-color: #F3F3F3;
+  font-family: 'Work Sans', sans-serif;
+}
+
+/* Warna hover pada header kolom */
+.ant-table .ant-table-thead > tr > th:hover {
+  background-color: #6C7C4D !important;
+  font-family: 'Work Sans', sans-serif; 
+}
+
+/* Warna hover pada isi dari setiap baris */
+.ant-table .ant-table-tbody > tr:hover > td {
+  background-color: #D5D5D5 !important;
+  font-family: 'Work Sans', sans-serif;
 }
