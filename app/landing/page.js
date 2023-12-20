@@ -1,4 +1,3 @@
-// pages/Landing.js
 import React from 'react';
 import Button from '../../components/Button/Button';
 import Image from 'next/image';
@@ -14,7 +13,7 @@ const Landing = () => {
         <h1 className="text-6xl mx-auto text-neutral-700">Management</h1>
         <p className="max-w-[599px] min-h-[100px] text-base pt-[16px] pb-[16px] mx-auto text-neutral-600 mt-4">We utilize blockchain to enhance transparency in agricultural product distribution. Track each product’s journey from origin to destination securely and reliably with blockchain technology.</p>
         <Button>Get Started</Button>
-        <div className="pt-[60px]">
+        <div className="pt-[60px] pb-[40px]">
           <Image src="/images/illus-landing2.png" width={1144} height={288} alt="404 text" />
         </div>
         {/* <img src={imageSrc} alt="Deskripsi Gambar" className="mt-8 max-w-full" /> */}
