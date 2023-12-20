@@ -53,3 +53,9 @@ body {
   background-color: #D5D5D5 !important;
   font-family: 'Work Sans', sans-serif;
 }
+
+.bg-image {
+  background-image: url('../public/images/Background-Agrichain.png');
+  background-size: cover;
+  background-position: center;
+}
