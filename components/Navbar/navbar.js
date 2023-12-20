@@ -1,78 +1,36 @@
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useClient } from 'next/react';
 import Image from 'next/image';
+import Link from 'next/link';
+// import { Links } from '../../components/Links'; // Pastikan lokasi file Links.js sudah sesuai
 
 const Navbar = () => {
-  const router = useRouter();
-  const [activeMenu, setActiveMenu] = useState('landing');
-  const { isClient } = useClient();
-
-  useEffect(() => {
-    // Gunakan useEffect hanya jika komponen berjalan di sisi klien
-    if (isClient) {
-      // Mengatur menu aktif berdasarkan path saat ini
-      const path = router.pathname;
-      if (path === '/product') {
-        setActiveMenu('product');
-      } else if (path === '/shipment') {
-        setActiveMenu('shipment');
-      } else if (path === '/track-record') {
-        setActiveMenu('track-record');
-      } else if (path === '/process') {
-        setActiveMenu('process');
-      } else if (path === '/account') {
-        setActiveMenu('account');
-      } else {
-        setActiveMenu('landing');
-      }
-    }
-  }, [router.pathname, isClient]);
-
-  const handleConnectWallet = () => {
-    // Fungsi untuk menangani login wallet
-    // Tambahkan logika Anda di sini untuk membuka MetaMask atau login wallet
-    console.log('Connect wallet clicked');
-  };
-
-  const menuItems = [
-    { label: 'Product', path: '/product' },
-    { label: 'Shipment', path: '/shipment' },
-    { label: 'Track', path: '/track' },
-    { label: 'Process', path: '/process' },
-    { label: 'Account', path: '/account' },
-  ];
-
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-200 p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <Link href="/">
-          <a>
-            <Image src="/images/Logo-Agrichain.png" alt="Logo" className="h-8" />
-          </a>
+    <nav className="flex max-h-[88px] items-center justify-between bg-neutral-100 py-[24px] ml-[148px] mr-[148px]">
+      <div className="flex items-center flex-shrink-0  pr-[40px]">
+        <Link href="/landing"> {/* Ganti dengan path yang sesuai */}
+          <Image src="/images/Logo-Agrichain.png" width={172} height={40} alt="Logo" className="h-8 cursor-pointer" />
         </Link>
       </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          {menuItems.map((item, index) => (
-            <Link key={index} href={item.path}>
-              <a
-                className={`block mt-4 lg:inline-block lg:mt-0 mr-4 ${
-                  activeMenu === item.label.toLowerCase()
-                    ? 'text-neutral-700'
-                    : 'text-neutral-500'
-                }`}
-              >
-                {item.label}
-              </a>
-            </Link>
-          ))}
-        </div>
-        <button
-          className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white bg-blue-500 hover:bg-blue-600 lg:mt-0"
-          onClick={handleConnectWallet}
-        >
+      <div className="flex-grow text-base items-center justify-between pr-[40px]">
+        <ul className="flex space-x-[40px] items-center justify-center w-full">
+          <li className='text-neutral-500'>
+            <Link href='/inventory'>Inventory</Link>
+          </li>
+          <li className='text-neutral-500'>
+            <Link href='/shipment'>Shipment</Link>
+          </li>
+          <li className='text-neutral-500'>
+            <Link href='/track'>Track</Link>
+          </li>
+          <li className='text-neutral-500'>
+            <Link href='/process'>Process</Link>
+          </li>
+          <li className='text-neutral-500'>
+            <Link href='/account'>Account</Link>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <button className="text-base px-[24px] py-[8px] h-[40px]  w-[172px] leading-none border rounded-[200px] text-neutral-100 bg-neutral-700 hover:bg-neutral-600">
           Connect Wallet
         </button>
       </div>
