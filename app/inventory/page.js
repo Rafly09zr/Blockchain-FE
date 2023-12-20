@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../../components/Button/Button';
 import Image from 'next/image';
 import { Table, Input, Tag } from 'antd';
+import Navbar from '../../components/Navbar/navbar';
 
 const columnsInventory = [
   {
@@ -132,6 +133,8 @@ const dataDestination = [
 
 const Inventory = () => {
   return (
+    <div className='h-screen bg-neutral-100'>
+      <Navbar/>
     <div className="bg-neutral-100 w-full h-fit mx-auto flex justify-center items-center">
       {/* <Navbar /> */}
       <div className="text-center ml-[148px] mr-[148px]">
@@ -180,6 +183,7 @@ const Inventory = () => {
             </div>
           </div>
       </div>
+    </div>
     </div>
   );
 };

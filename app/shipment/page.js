@@ -2,6 +2,7 @@
 import React from 'react';
 import Button from '../../components/Button/Button';
 import { Table, Input } from 'antd';
+import Navbar from '../../components/Navbar/navbar';
 
 const columnsShipment = [
   {
@@ -82,6 +83,8 @@ const dataLeft = [
 
 const Shipment = () => {
   return (
+    <div className='h-screen bg-neutral-100'>
+      <Navbar/>
     <div className="bg-neutral-100 w-full h-fit mx-auto flex justify-center items-center">
       {/* <Navbar /> */}
       <div className="text-center ml-[148px] mr-[148px]">
@@ -170,6 +173,7 @@ const Shipment = () => {
                 />
                 </div>
       </div>
+    </div>
     </div>
   );
 };
