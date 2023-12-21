@@ -1,7 +1,7 @@
 import { useApiMutation2 } from '../useApiMutation'
 import { axios } from '../../lib/axios'
 
-export const usePerson = () => {
+export const useProduct = () => {
   return useApiMutation2({
     queryKey: ['products'],
     mutationFun: async (_, data) => {
@@ -12,4 +12,4 @@ export const usePerson = () => {
   })
 }
 
-export default usePerson
+export default useProduct

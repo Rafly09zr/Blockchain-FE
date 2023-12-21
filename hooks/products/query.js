@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { axios } from '../../lib/axios'
 
-export const useGetPerson = (id) => {
+export const useGetProduct = (id) => {
   return useQuery({
     queryKey: ['products'],
     queryFn: async () => {
@@ -15,4 +15,4 @@ export const useGetPerson = (id) => {
   })
 }
 
-export default useGetPerson
+export default useGetProduct
