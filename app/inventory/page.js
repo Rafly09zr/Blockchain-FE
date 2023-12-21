@@ -1,11 +1,11 @@
 // pages/inventory.js
-'use client';
-import React, { useState, useEffect, useRef } from 'react';
-import Button from '../../components/Button/Button';
-import Image from 'next/image';
-import { Table, Input, Tag } from 'antd';
-import Navbar from '../../components/Navbar/navbar';
-import ModalAddItem from '../../components/Modal/ModalAddItem';
+'use client'
+import React, { useState, useEffect, useRef } from 'react'
+import Button from '../../components/Button/Button'
+import Image from 'next/image'
+import { Table, Input, Tag } from 'antd'
+import Navbar from '../../components/Navbar/navbar'
+import ModalAddItem from '../../components/Modal/ModalAddItem'
 
 const columnsInventory = [
   {
@@ -39,7 +39,7 @@ const columnsInventory = [
     dataIndex: 'Description',
     key: 'Description',
   },
-];
+]
 
 const columnsDestination = [
   {
@@ -78,8 +78,7 @@ const columnsDestination = [
     key: 'Timestamp',
     dataIndex: 'Timestamp',
   },
-];
-
+]
 
 const dataInventory = [
   {
@@ -109,7 +108,7 @@ const dataInventory = [
     Type: 'Agriculture',
     Description: 'Fresh corn from farm Z',
   },
-];
+]
 
 const dataDestination = [
   {
@@ -122,7 +121,7 @@ const dataDestination = [
     buyPrice: '$20',
     Timestamp: '2023-12-01 08:30:00',
   },
-];
+]
 
 const currentData = [
   {
@@ -142,92 +141,99 @@ const currentData = [
     Description: 'Description of Product 2',
   },
   // Add more sample data if needed
-];
+]
 
 const Inventory = () => {
-  const modalRef = useRef(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const modalRef = useRef(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const handleAddItemClick = () => {
-    setIsModalVisible(true);
-  };
+    setIsModalVisible(true)
+  }
 
   const handleModalClose = () => {
-    setIsModalVisible(false);
-  };
+    setIsModalVisible(false)
+  }
 
   const handleAddProduct = (productData) => {
-    console.log('Product Added:', productData);
-    handleModalClose();
-  };
+    console.log('Product Added:', productData)
+    handleModalClose()
+  }
 
   useEffect(() => {
     if (modalRef.current) {
       if (isModalVisible) {
-        modalRef.current.style.display = 'block';
+        modalRef.current.style.display = 'block'
       } else {
-        modalRef.current.style.display = 'none';
+        modalRef.current.style.display = 'none'
       }
     }
-  }, [isModalVisible]);
+  }, [isModalVisible])
 
   return (
-    <div className='h-screen bg-neutral-100'>
-      <Navbar/>
-    <div className="bg-neutral-100 w-full h-fit mx-auto flex justify-center items-center">
-      {/* <Navbar /> */}
-      <div className="text-center ml-[148px] mr-[148px]">
-        <h1 className="text-4xl pt-[60px] mx-auto text-neutral-700">Manage your Inventory</h1>
-        <p className="max-w-[600px] min-h-[100px] text-base pt-[16px] pb-[16px] mx-auto text-neutral-600 mt-4">Efficiently manage your inventory using our blockchain-powered supply chain solution. Monitor your products journey from now!</p>
-        <div className="mt-[60px] flex justify-between items-center w-full">
-          <h2 className="text-3xl text-neutral-700">My Inventory</h2>
-          <button 
-            className='bg-light-green-200 text-base text-neutral-700 px-[24px] py-[8px] rounded-[200px] focus:outline-none transition duration-300 hover:bg-light-green-300'
-            onClick={handleAddItemClick}>
-            Add Item
+    <div className="h-screen bg-neutral-100">
+      <Navbar />
+      <div className="mx-auto flex h-fit w-full items-center justify-center bg-neutral-100">
+        {/* <Navbar /> */}
+        <div className="ml-[148px] mr-[148px] text-center">
+          <h1 className="mx-auto pt-[60px] text-4xl text-neutral-700">Manage your Inventory</h1>
+          <p className="mx-auto mt-4 min-h-[100px] max-w-[600px] pb-[16px] pt-[16px] text-base text-neutral-600">
+            Efficiently manage your inventory using our blockchain-powered supply chain solution.
+            Monitor your products journey from now!
+          </p>
+          <div className="mt-[60px] flex w-full items-center justify-between">
+            <h2 className="text-3xl text-neutral-700">My Inventory</h2>
+            <button
+              className="rounded-[200px] bg-light-green-200 px-[24px] py-[8px] text-base text-neutral-700 transition duration-300 hover:bg-light-green-300 focus:outline-none"
+              onClick={handleAddItemClick}
+            >
+              Add Item
             </button>
           </div>
           <div className="pt-[24px]">
-          <div className="table-container w-full">
-            <Table
-              columns={columnsInventory}
-              dataSource={dataInventory}
-              scroll={{ x: true }}
-              style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
-            />
+            <div className="table-container w-full">
+              <Table
+                columns={columnsInventory}
+                dataSource={dataInventory}
+                scroll={{ x: true }}
+                style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
+              />
             </div>
           </div>
-          <h2 className="mt-[60px] text-left text-3xl text-neutral-700">Find Product Destination Path</h2>
-          <div className="mt-[16px] flex justify-between items-center w-full">
-          <p className="text-base text-left pr-[80px] text-neutral-600">
-            Track your product’s final destinations by
-            <br />
-            entering its Id. Discover where your product destination!</p>
-          <Input
-            style={{ 
-              width: '480px', 
-              height: '40px', 
-              borderRadius: '24px',
-              paddingLeft: '20px',
-              fontSize: '16px',
-            }}
-            placeholder="Product Id, e.g. 0x1AU42CVAW5JUU397"
-          />
-          <Button>Search</Button>
-          </div>
-          <div className="pt-[24px] pb-[60px]">
-          <div className="table-container w-full">
-            <Table
-              columns={columnsDestination}
-              dataSource={dataDestination}
-              scroll={{ x: true }}
-              style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
+          <h2 className="mt-[60px] text-left text-3xl text-neutral-700">
+            Find Product Destination Path
+          </h2>
+          <div className="mt-[16px] flex w-full items-center justify-between">
+            <p className="pr-[80px] text-left text-base text-neutral-600">
+              Track your product’s final destinations by
+              <br />
+              entering its Id. Discover where your product destination!
+            </p>
+            <Input
+              style={{
+                width: '480px',
+                height: '40px',
+                borderRadius: '24px',
+                paddingLeft: '20px',
+                fontSize: '16px',
+              }}
+              placeholder="Product Id, e.g. 0x1AU42CVAW5JUU397"
             />
+            <Button>Search</Button>
+          </div>
+          <div className="pb-[60px] pt-[24px]">
+            <div className="table-container w-full">
+              <Table
+                columns={columnsDestination}
+                dataSource={dataDestination}
+                scroll={{ x: true }}
+                style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
+              />
             </div>
           </div>
+        </div>
       </div>
-    </div>
-    <div ref={modalRef} style={{ display: 'none' }}>
+      <div ref={modalRef} style={{ display: 'none' }}>
         {isModalVisible && (
           <ModalAddItem
             onCancel={handleModalClose}
@@ -237,7 +243,7 @@ const Inventory = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Inventory;
+export default Inventory

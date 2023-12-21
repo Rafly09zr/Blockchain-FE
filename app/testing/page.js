@@ -1,34 +1,34 @@
 // pages/TestingPage.js
-'use client';
-import { useState } from 'react';
-import CustomModal from '../../components/Modal/ModalDaftar';
-import fetchMetaMaskAddress from '../MetaMaskService'; // Sesuaikan dengan lokasi file Anda
+'use client'
+import { useState } from 'react'
+import CustomModal from '../../components/Modal/ModalDaftar'
+import fetchMetaMaskAddress from '../MetaMaskService' // Sesuaikan dengan lokasi file Anda
 
 const TestingPage = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
+  const [modalVisible, setModalVisible] = useState(false)
+  const [walletAddress, setWalletAddress] = useState('')
 
   const handleModalCancel = () => {
-    setModalVisible(false);
-  };
+    setModalVisible(false)
+  }
 
   const handleLogin = (name, occupation, address) => {
     // Handle login logic
-    console.log('Name:', name);
-    console.log('Occupation:', occupation);
-    console.log('Address (from MetaMask):', address);
-    setModalVisible(false);
-  };
+    console.log('Name:', name)
+    console.log('Occupation:', occupation)
+    console.log('Address (from MetaMask):', address)
+    setModalVisible(false)
+  }
 
   const openModal = async () => {
-    const address = await fetchMetaMaskAddress();
+    const address = await fetchMetaMaskAddress()
     if (address) {
-      setWalletAddress(address);
-      setModalVisible(true);
+      setWalletAddress(address)
+      setModalVisible(true)
     } else {
-      console.log('Unable to fetch MetaMask address');
+      console.log('Unable to fetch MetaMask address')
     }
-  };
+  }
 
   return (
     <div>
@@ -41,7 +41,7 @@ const TestingPage = () => {
         walletAddress={walletAddress} // Mengirim alamat ke modal sebagai prop
       />
     </div>
-  );
-};
+  )
+}
 
-export default TestingPage;
+export default TestingPage
