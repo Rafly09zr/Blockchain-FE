@@ -3,12 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 
 import { axios } from '../../lib/axios'
 
-export const useGetProduct = (id) => {
+export const useGetProduct = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      if (id === '') return
-      const res = await axios.get(`/products/${id}`)
+      const res = await axios.get(`/products`)
       return res.data
     },
     staleTime: 15 * 60 * 1000,

@@ -1,13 +1,17 @@
 // components/ModalAddInventory.js
 'use client'
 import { useState, useEffect } from 'react'
-import { Modal, Button, Input } from 'antd'
+import { Modal, Button, Input, Select } from 'antd'
+import { useGetProduct } from '@/hooks/products'
 
 const ModalAddInventory = ({ visible, onCancel, onAddProduct }) => {
   const [idProduct, setIdProduct] = useState('')
-  const [weight, setWeight] = useState(0)
+  const [weight, setWeight] = useState('')
+  const { data } = useGetProduct()
+  console.log(data)
 
   const handleIdProductChange = (e) => {
+    console.log(e)
     setIdProduct(e.target.value)
   }
 
@@ -28,6 +32,7 @@ const ModalAddInventory = ({ visible, onCancel, onAddProduct }) => {
       open={visible}
       onCancel={onCancel}
       closable={true}
+      className="flex w-full flex-col"
       footer={[
         <Button
           key="add"
@@ -41,15 +46,21 @@ const ModalAddInventory = ({ visible, onCancel, onAddProduct }) => {
       ]}
     >
       <label htmlFor="idProduct">Id Product:</label>
-      <Input
-        placeholder="Generate Address"
-        value={idProduct}
+      <Select
+        defaultValue="lucy"
+        style={{ width: '100%' }}
         onChange={handleIdProductChange}
-        style={{ marginBottom: '1rem' }}
+        options={[
+          { value: 'jack', label: 'Jack' },
+          { value: 'lucy', label: 'Lucy' },
+          { value: 'Yiminghe', label: 'yiminghe' },
+          { value: 'disabled', label: 'Disabled', disabled: true },
+        ]}
+        className="w-full"
       />
       <label htmlFor="weight">Weight:</label>
       <Input
-        placeholder="e.g. Agrc-3"
+        placeholder="e.g. 200"
         value={weight}
         onChange={handleWeight}
         style={{ marginBottom: '1rem' }}

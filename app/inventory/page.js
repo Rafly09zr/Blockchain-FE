@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button'
 import Image from 'next/image'
 import { Table, Input, Tag } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
-import ModalAddInventory from '../../components/Modal/ModalAddItem'
+import ModalAddInventory from '../../components/Modal/ModalAddInventory'
 import { useGetInventory } from '@/hooks/inventory'
 
 const columnsInventory = [
