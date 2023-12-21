@@ -63,11 +63,11 @@ const Navbar = () => {
   return (
     <nav className="ml-[148px] mr-[148px] flex max-h-[88px] items-center justify-between bg-neutral-100 py-[24px]">
       <div className="flex flex-shrink-0 items-center  pr-[40px]">
-        <Link href="/landing">
+        <Link href="/">
           {' '}
           {/* Ganti dengan path yang sesuai */}
           <Image
-            src="/images/Logo-Agrichain.png"
+            src="/images/Logo_agrichain_fix.png"
             width={172}
             height={40}
             alt="Logo"
