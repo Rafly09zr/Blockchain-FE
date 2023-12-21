@@ -1,11 +1,11 @@
-// pages/Landing.js
+// pages/inventory.js
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from '../../components/Button/Button';
 import Image from 'next/image';
 import { Table, Input, Tag } from 'antd';
 import Navbar from '../../components/Navbar/navbar';
-import AddProductModal from '../../components/Modal/ModalAddItem';
+import ModalAddItem from '../../components/Modal/ModalAddItem';
 
 const columnsInventory = [
   {
@@ -39,12 +39,6 @@ const columnsInventory = [
     dataIndex: 'Description',
     key: 'Description',
   },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-  },
-  
 ];
 
 const columnsDestination = [
@@ -96,7 +90,6 @@ const dataInventory = [
     ChangePercent: '+10%',
     Type: 'Agriculture',
     Description: 'High-quality rice from farm X',
-    tags: ['agriculture', 'high-quality'],
   },
   {
     key: '2',
@@ -106,7 +99,6 @@ const dataInventory = [
     ChangePercent: '-5%',
     Type: 'Agriculture',
     Description: 'Organic wheat from farm Y',
-    tags: ['agriculture', 'organic'],
   },
   {
     key: '3',
@@ -116,7 +108,6 @@ const dataInventory = [
     ChangePercent: '+15%',
     Type: 'Agriculture',
     Description: 'Fresh corn from farm Z',
-    tags: ['agriculture', 'fresh'],
   },
 ];
 
@@ -133,15 +124,52 @@ const dataDestination = [
   },
 ];
 
-const Inventory = () => {
+const currentData = [
+  {
+    idProduct: 'Agrc-1',
+    idBefore: 'null',
+    Name: 'Product 1',
+    ChangePercent: '10%',
+    Type: 'Type A',
+    Description: 'Description of Product 1',
+  },
+  {
+    idProduct: 'Agrc-2',
+    idBefore: 'Agrc-1',
+    Name: 'Product 2',
+    ChangePercent: '15%',
+    Type: 'Type B',
+    Description: 'Description of Product 2',
+  },
+  // Add more sample data if needed
+];
 
-  const [modalVisible, setModalVisible] = useState(false);
+const Inventory = () => {
+  const modalRef = useRef(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleAddItemClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
+  };
 
   const handleAddProduct = (productData) => {
-    // Logic to add the product using productData
     console.log('Product Added:', productData);
-    setModalVisible(false); // Tutup modal setelah produk ditambahkan
+    handleModalClose();
   };
+
+  useEffect(() => {
+    if (modalRef.current) {
+      if (isModalVisible) {
+        modalRef.current.style.display = 'block';
+      } else {
+        modalRef.current.style.display = 'none';
+      }
+    }
+  }, [isModalVisible]);
 
   return (
     <div className='h-screen bg-neutral-100'>
@@ -153,7 +181,11 @@ const Inventory = () => {
         <p className="max-w-[600px] min-h-[100px] text-base pt-[16px] pb-[16px] mx-auto text-neutral-600 mt-4">Efficiently manage your inventory using our blockchain-powered supply chain solution. Monitor your products journey from now!</p>
         <div className="mt-[60px] flex justify-between items-center w-full">
           <h2 className="text-3xl text-neutral-700">My Inventory</h2>
-          <Button onClick={() => setModalVisible(true)}>Add Item</Button>
+          <button 
+            className='bg-light-green-200 text-base text-neutral-700 px-[24px] py-[8px] rounded-[200px] focus:outline-none transition duration-300 hover:bg-light-green-300'
+            onClick={handleAddItemClick}>
+            Add Item
+            </button>
           </div>
           <div className="pt-[24px]">
           <div className="table-container w-full">
@@ -195,11 +227,15 @@ const Inventory = () => {
           </div>
       </div>
     </div>
-    <AddProductModal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onAddProduct={handleAddProduct}
-      />
+    <div ref={modalRef} style={{ display: 'none' }}>
+        {isModalVisible && (
+          <ModalAddItem
+            onCancel={handleModalClose}
+            onAddProduct={handleAddProduct}
+            visible={isModalVisible}
+          />
+        )}
+      </div>
     </div>
   );
 };

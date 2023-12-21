@@ -3,21 +3,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import CustomModalDaftar from '../../components/Modal/ModalDaftar';
 // import { Links } from '../../components/Links'; // Pastikan lokasi file Links.js sudah sesuai
 
 const Navbar = () => {
   const pathname = usePathname();
   const [walletAddress, setWalletAddress] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
-        // Request account access if needed
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-        // Accounts now exposed, get the address
         const accounts = await window.ethereum.request({ method: 'eth_accounts' });
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);
+          setIsModalVisible(true); // Tampilkan modal setelah berhasil terhubung
         }
       } catch (error) {
         console.error(error);
@@ -39,6 +40,10 @@ const Navbar = () => {
         .catch(err => console.error(err));
     }
   }, []);
+
+  const handleLogin = (name, occupation, location, walletAddress) => {
+    // Fungsi untuk menangani proses login
+  };
 
   return (
     <nav className="flex max-h-[88px] items-center justify-between bg-neutral-100 py-[24px] ml-[148px] mr-[148px]">
@@ -90,6 +95,12 @@ const Navbar = () => {
           </button>
         )}
       </div>
+      <CustomModalDaftar
+        visible={isModalVisible && !walletAddress}
+        onLogin={handleLogin}
+        walletAddress={walletAddress}
+        onCancel={() => setIsModalVisible(false)}
+      />
     </nav>
   );
 };
