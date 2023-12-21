@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button'
 import Image from 'next/image'
 import { Table, Input, Tag } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
-import ModalAddItem from '../../components/Modal/ModalAddItem'
+import ModalAddInventory from '../../components/Modal/ModalAddItem'
 import { useGetInventory } from '@/hooks/inventory'
 
 const columnsInventory = [
@@ -188,7 +188,7 @@ const Inventory = () => {
       </div>
       <div ref={modalRef} style={{ display: 'none' }}>
         {isModalVisible && (
-          <ModalAddItem
+          <ModalAddInventory
             onCancel={handleModalClose}
             onAddProduct={handleAddProduct}
             visible={isModalVisible}
