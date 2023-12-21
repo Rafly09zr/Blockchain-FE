@@ -134,7 +134,7 @@ const Inventory = () => {
               className="rounded-[200px] bg-light-green-200 px-[24px] py-[8px] text-base text-neutral-700 transition duration-300 hover:bg-light-green-300 focus:outline-none"
               onClick={handleAddItemClick}
             >
-              Add Item
+              Add Inventory
             </button>
           </div>
           <div className="pt-[24px]">
