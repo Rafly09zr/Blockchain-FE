@@ -1,8 +1,8 @@
 // components/Modal.js
 'use client'
 import { useState } from 'react'
-import { Modal, Button, Input } from 'antd'
-
+import { Modal, Input } from 'antd'
+import Button from '../../components/Button/Button'
 const CustomModalDaftar = ({ visible, onLogin, walletAddress }) => {
   const [name, setName] = useState('')
   const [occupation, setOccupation] = useState('')
@@ -35,7 +35,7 @@ const CustomModalDaftar = ({ visible, onLogin, walletAddress }) => {
       open={visible}
       closable={false} // Menonaktifkan tombol close
       footer={[
-        <Button key="Register" type="primary" onClick={handleLogin}>
+        <Button key="Register" onClick={handleLogin}>
           Register
         </Button>,
       ]}

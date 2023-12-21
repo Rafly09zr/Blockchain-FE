@@ -6,28 +6,24 @@ import Image from 'next/image'
 import { Table, Input, Tag } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
 import ModalAddItem from '../../components/Modal/ModalAddItem'
+import { useGetInventory } from '@/hooks/inventory'
 
 const columnsInventory = [
   {
-    title: 'Id Product',
-    dataIndex: 'idProduct',
-    key: 'idProduct',
+    title: 'Id',
+    dataIndex: 'productID',
+    key: 'productID',
     // render: (text) => text,
   },
   {
-    title: 'Id Before',
-    dataIndex: 'idBefore',
-    key: 'idBefore',
-  },
-  {
     title: 'Product Name',
-    dataIndex: 'Name',
+    dataIndex: 'name',
     key: 'Name',
   },
   {
-    title: 'Change Percent',
-    dataIndex: 'ChangePercent',
-    key: 'ChangePercent',
+    title: 'Weight',
+    dataIndex: 'totalWeight',
+    key: 'weight',
   },
   {
     title: 'Type',
@@ -36,8 +32,8 @@ const columnsInventory = [
   },
   {
     title: 'Description',
-    dataIndex: 'Description',
-    key: 'Description',
+    dataIndex: 'description',
+    key: 'description',
   },
 ]
 
@@ -80,36 +76,6 @@ const columnsDestination = [
   },
 ]
 
-const dataInventory = [
-  {
-    key: '1',
-    idProduct: '0x123ABCdkgh',
-    idBefore: '0x789DEF',
-    Name: 'Rice',
-    ChangePercent: '+10%',
-    Type: 'Agriculture',
-    Description: 'High-quality rice from farm X',
-  },
-  {
-    key: '2',
-    idProduct: '0x456GHI',
-    idBefore: '0x789DEF',
-    Name: 'Wheat',
-    ChangePercent: '-5%',
-    Type: 'Agriculture',
-    Description: 'Organic wheat from farm Y',
-  },
-  {
-    key: '3',
-    idProduct: '0x789JKL',
-    idBefore: '0xXYZ123',
-    Name: 'Corn',
-    ChangePercent: '+15%',
-    Type: 'Agriculture',
-    Description: 'Fresh corn from farm Z',
-  },
-]
-
 const dataDestination = [
   {
     key: '1',
@@ -123,29 +89,10 @@ const dataDestination = [
   },
 ]
 
-const currentData = [
-  {
-    idProduct: 'Agrc-1',
-    idBefore: 'null',
-    Name: 'Product 1',
-    ChangePercent: '10%',
-    Type: 'Type A',
-    Description: 'Description of Product 1',
-  },
-  {
-    idProduct: 'Agrc-2',
-    idBefore: 'Agrc-1',
-    Name: 'Product 2',
-    ChangePercent: '15%',
-    Type: 'Type B',
-    Description: 'Description of Product 2',
-  },
-  // Add more sample data if needed
-]
-
 const Inventory = () => {
   const modalRef = useRef(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const { data: dataInventory } = useGetInventory()
 
   const handleAddItemClick = () => {
     setIsModalVisible(true)
@@ -195,6 +142,12 @@ const Inventory = () => {
               <Table
                 columns={columnsInventory}
                 dataSource={dataInventory}
+                expandable={{
+                  expandedRowRender: (record) => (
+                    <p style={{ margin: 0 }}>{record?.productRecords}</p>
+                  ),
+                  rowExpandable: (record) => record?.productRecords?.length === 0,
+                }}
                 scroll={{ x: true }}
                 style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
               />

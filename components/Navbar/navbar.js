@@ -4,12 +4,23 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import CustomModalDaftar from '../../components/Modal/ModalDaftar'
+import { useGetPerson, usePerson } from '@/hooks/person'
 // import { Links } from '../../components/Links'; // Pastikan lokasi file Links.js sudah sesuai
 
 const Navbar = () => {
   const pathname = usePathname()
   const [walletAddress, setWalletAddress] = useState('')
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const { mutate: createPerson } = usePerson()
+  const { data, refetch } = useGetPerson(walletAddress)
+  console.log(data)
+  useEffect(() => {
+    refetch
+    if (data) setIsModalVisible(false)
+    if (!data && walletAddress !== '') {
+      setIsModalVisible(true)
+    }
+  }, [data, refetch, walletAddress])
 
   const connectWallet = async () => {
     if (window.ethereum) {
@@ -43,7 +54,7 @@ const Navbar = () => {
   }, [])
 
   const handleLogin = (name, occupation, location, walletAddress) => {
-    // Fungsi untuk menangani proses login
+    createPerson({ userAddress: walletAddress, name, occupation, location })
   }
 
   return (
@@ -105,7 +116,7 @@ const Navbar = () => {
         )}
       </div>
       <CustomModalDaftar
-        visible={isModalVisible && !walletAddress}
+        visible={isModalVisible}
         onLogin={handleLogin}
         walletAddress={walletAddress}
         onCancel={() => setIsModalVisible(false)}

@@ -1,7 +1,7 @@
 // components/Button.js
 import React from 'react'
 
-export const Button = ({ children, variant }) => {
+export const Button = ({ children, variant, onClick }) => {
   let buttonClass =
     'bg-light-green-200 text-base text-neutral-700 px-[24px] py-[8px] rounded-[200px] focus:outline-none transition duration-300 hover:bg-light-green-300'
 
@@ -15,7 +15,7 @@ export const Button = ({ children, variant }) => {
   }
 
   return (
-    <button className={buttonClass} style={{ marginLeft: '16px' }}>
+    <button type="button" className={buttonClass} style={{ marginLeft: '16px' }} onClick={onClick}>
       {children}
     </button>
   )
