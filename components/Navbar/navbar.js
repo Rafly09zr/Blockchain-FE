@@ -16,13 +16,15 @@ const Navbar = () => {
 
   useEffect(() => {
     refetch
-    if (data) setIsModalVisible(false)
+    if (data) {
+      setIsModalVisible(false)
+      localStorage.setItem('account', JSON.stringify(data))
+    }
     if (!data && walletAddress !== '') {
       setIsModalVisible(true)
     }
-    localStorage.setItem('account', JSON.stringify(data))
   }, [data, refetch, walletAddress])
-
+  console.log(data)
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
