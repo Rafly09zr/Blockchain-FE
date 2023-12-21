@@ -1,57 +1,55 @@
-// components/ModalAddAccount.js
 'use client'
+
 import { useState, useEffect, useMemo } from 'react'
 import { Modal, Button, Input, Select, notification } from 'antd'
 import { useContacts } from '@/hooks/account'
 
 const ModalAddAccount = ({ visible, onCancel, onAddAccount }) => {
-    const [userAddress, setUserAddress] = useState('')
-    const [name, setName] = useState('')
-    const [occupation, setOccupation] = useState('')
-    const [location, setLocation] = useState('')
-    const { data } = useContacts()
-    const { mutate: AddAccount, isPending, isSuccess } = useContacts()
-    const [api, contextHolder] = notification.useNotification()
-    useEffect(() => {
-        if (isSuccess) {
-        api['success']({
-            message: 'Data Account Berhasil Ditambahkan',
-        })
-        }
-    }, [api, isSuccess])
+  const [userAddress, setUserAddress] = useState('')
+  const [name, setName] = useState('')
+  const [occupation, setOccupation] = useState('')
+  const [location, setLocation] = useState('')
+  const { mutate: AddAccount, isPending, isSuccess } = useContacts()
+  const [api, contextHolder] = notification.useNotification()
+  useEffect(() => {
+    if (isSuccess) {
+      api['success']({
+        message: 'Data Account Berhasil Ditambahkan',
+      })
+    }
+  }, [api, isSuccess])
 
-    const handleUserAddress = (e) => {
-        setUserAddress(e)
-      }
-    
-    const handleName = (e) => {
-        setName(e)
-      }
+  const handleUserAddress = (e) => {
+    setUserAddress(e.target.value)
+  }
 
-    const handleOccupation = (e) => {
-        setOccupation(e)
-      }
+  const handleName = (e) => {
+    setName(e.target.value)
+  }
 
-    const handleLocation = (e) => {
-        setLocation(e)
-      }
+  const handleOccupation = (e) => {
+    setOccupation(e.target.value)
+  }
 
-    const handleAddAccount = () => {
-        const userAddress = JSON.parse(localStorage.getItem('account')).userAddress
-        AddAccount({ address: userAddress, name: name, occupation: occupation, location: location })
-      }
+  const handleLocation = (e) => {
+    setLocation(e.target.value)
+  }
 
-      const product = useMemo(
-        () =>
-          data?.map((e) => ({
-            value: e.productID,
-            label: e.name,
-          })),
-        [data],
-      )
+  const handleAddAccount = () => {
+    const account = JSON.parse(localStorage.getItem('account')).userAddress
+    AddAccount({
+      account,
+      contact: {
+        address: userAddress,
+        name: name,
+        occupation: occupation,
+        location: location,
+      },
+    })
+  }
 
-    return (
-        <>
+  return (
+    <>
       {contextHolder}
       <Modal
         title="Add Account"
@@ -72,30 +70,37 @@ const ModalAddAccount = ({ visible, onCancel, onAddAccount }) => {
           </Button>,
         ]}
       >
+        <label htmlFor="Address">Address:</label>
+        <Input
+          placeholder="e.g. 0xAjsdsnsfkas"
+          value={userAddress}
+          onChange={handleUserAddress}
+          style={{ marginBottom: '1rem' }}
+        />
         <label htmlFor="Name">Name:</label>
         <Input
-          placeholder="e.g. 200"
+          placeholder="e.g. Name"
           value={name}
           onChange={handleName}
           style={{ marginBottom: '1rem' }}
         />
-                <label htmlFor="Occupation">occupation:</label>
+        <label htmlFor="Occupation">occupation:</label>
         <Input
-          placeholder="e.g. 200"
+          placeholder="e.g. Petani"
           value={occupation}
           onChange={handleOccupation}
           style={{ marginBottom: '1rem' }}
         />
-                <label htmlFor="Location">location:</label>
+        <label htmlFor="Location">location:</label>
         <Input
-          placeholder="e.g. 200"
+          placeholder="e.g. Yogyakarta"
           value={location}
           onChange={handleLocation}
           style={{ marginBottom: '1rem' }}
         />
       </Modal>
     </>
-    )
+  )
 }
 
 export default ModalAddAccount

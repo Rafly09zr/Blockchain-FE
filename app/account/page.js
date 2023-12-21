@@ -1,31 +1,32 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Button from '../../components/Button/Button'
 import { Table, Input } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
 import { useGetContacts } from '@/hooks/account'
+import ModalAddAccount from '@/components/Modal/ModalAddAccount'
 
 const columnsAccount = [
   {
     title: 'Address Account',
-    dataIndex: 'AddressAccount',
+    dataIndex: 'address',
     key: 'AddressAccount',
     // render: (text) => text,
   },
   {
     title: 'Account Name',
-    dataIndex: 'Name',
+    dataIndex: 'name',
     key: 'Name',
   },
   {
     title: 'Occupation',
-    dataIndex: 'Occupation',
+    dataIndex: 'occupation',
     key: 'Occupation',
   },
   {
     title: 'Location',
-    dataIndex: 'Location',
+    dataIndex: 'location',
     key: 'Location',
   },
 ]
@@ -102,32 +103,33 @@ const dataInventory = [
   },
 ]
 
-const dataAccount = [
-  {
-    key: '1',
-    AddressAccount: '0x1A742CVAW5JUU397',
-    Name: 'John Doe',
-    Occupation: 'Engineer',
-    Location: 'New York',
-  },
-  {
-    key: '2',
-    AddressAccount: '0x3B985MZXY2ABP324',
-    Name: 'Alice Johnson',
-    Occupation: 'Doctor',
-    Location: 'Los Angeles',
-  },
-  {
-    key: '3',
-    AddressAccount: '0x6G715PVKQ9YWU820',
-    Name: 'Bob Smith',
-    Occupation: 'Teacher',
-    Location: 'Chicago',
-  },
-]
-
 const Account = () => {
   const { data: contactData } = useGetContacts()
+  const modalRef = useRef(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const handleAddItemClick = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleModalClose = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleAddProduct = (productData) => {
+    console.log('Product Added:', productData)
+    handleModalClose()
+  }
+
+  useEffect(() => {
+    if (modalRef.current) {
+      if (isModalVisible) {
+        modalRef.current.style.display = 'block'
+      } else {
+        modalRef.current.style.display = 'none'
+      }
+    }
+  }, [isModalVisible])
   return (
     <div className="h-screen bg-neutral-100">
       <Navbar />
@@ -139,7 +141,7 @@ const Account = () => {
             Efficiently manage your inventory using our blockchain-powered supply chain solution.
             Monitor your products journey from now!
           </p>
-          <h2 className="mt-[60px] text-left text-3xl text-neutral-700">
+          {/* <h2 className="mt-[60px] text-left text-3xl text-neutral-700">
             Search the Account Product
           </h2>
           <p className="pr-[80px] pt-[16px] text-left text-base text-neutral-600">
@@ -166,19 +168,29 @@ const Account = () => {
               scroll={{ x: true }}
               style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
             />
-          </div>
+          </div> */}
           <div className="flex w-full items-center justify-between pt-[60px]">
             <h2 className="text-3xl text-neutral-700">Agrichain Contact</h2>
+            <Button onClick={handleAddItemClick}>Add Contact</Button>
           </div>
           <div className="overflow-x-auto pb-[60px] pt-[24px]">
             <Table
               columns={columnsAccount}
-              dataSource={dataAccount}
+              dataSource={contactData?.contact}
               scroll={{ x: 'max-content' }}
               style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
             />
           </div>
         </div>
+      </div>
+      <div ref={modalRef} style={{ display: 'none' }}>
+        {isModalVisible && (
+          <ModalAddAccount
+            onCancel={handleModalClose}
+            onAddProduct={handleAddProduct}
+            visible={isModalVisible}
+          />
+        )}
       </div>
     </div>
   )
