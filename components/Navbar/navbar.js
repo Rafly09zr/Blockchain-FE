@@ -13,13 +13,14 @@ const Navbar = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const { mutate: createPerson } = usePerson()
   const { data, refetch } = useGetPerson(walletAddress)
-  console.log(data)
+
   useEffect(() => {
     refetch
     if (data) setIsModalVisible(false)
     if (!data && walletAddress !== '') {
       setIsModalVisible(true)
     }
+    localStorage.setItem('account', JSON.stringify(data))
   }, [data, refetch, walletAddress])
 
   const connectWallet = async () => {
