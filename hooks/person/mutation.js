@@ -6,6 +6,7 @@ export const usePerson = () => {
     queryKey: ['person'],
     mutationFun: async (_, data) => {
       console.log(data)
+      if (!data) return
       const res = await axios.post('/person', data)
       return res?.data
     },

@@ -1,8 +1,10 @@
 // pages/Landing.js
-import React from 'react'
+'use client'
+import React, { useEffect, useMemo, useState } from 'react'
 import Button from '../../components/Button/Button'
-import { Table, Input } from 'antd'
+import { Table, Input, Select } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
+import { useGetInventory } from '@/hooks/inventory'
 
 const columnsShipment = [
   {
@@ -66,22 +68,37 @@ const dataShipment = [
   },
 ]
 
-const dataLeft = [
-  {
-    label: 'Product Id',
-    value: '0x1AU42CVAW5JUU397',
-  },
-  {
-    label: 'Product Name',
-    value: 'Rice',
-  },
-  {
-    label: 'Weight',
-    value: '10kg',
-  },
-]
+// const dataLeft = [
+//   {
+//     label: 'Product Id',
+//     value: '0x1AU42CVAW5JUU397',
+//   },
+//   {
+//     label: 'Product Name',
+//     value: 'Rice',
+//   },
+//   {
+//     label: 'Weight',
+//     value: '10kg',
+//   },
+// ]
 
-const Shipment = () => {
+function Shipment() {
+  const [dataLeft, setDataLeft] = useState([])
+  const { data: dataInventory } = useGetInventory()
+  const optionsInventory = useMemo(
+    () =>
+      dataInventory?.map((e) => ({
+        value: e?.productID,
+        label: e?.name,
+      })),
+    [dataInventory],
+  )
+  const handleChange = (events) => {
+    setDataLeft(dataInventory.filter((e) => e.productID === events)[0])
+  }
+  console.log(dataLeft)
+
   return (
     <div className="h-screen bg-neutral-100">
       <Navbar />
@@ -100,37 +117,45 @@ const Shipment = () => {
             destination!
           </p>
           <div className="mt-[16px] flex w-full items-center justify-between">
-            <Input
+            <Select
               style={{
                 height: '40px',
                 borderRadius: '24px',
                 paddingLeft: '20px',
                 fontSize: '16px',
+                justifyContent: 'left',
+                textJustify: 'left',
               }}
-              placeholder="Product Id, e.g. 0x1AU42CVAW5JUU397"
+              onChange={handleChange}
+              options={optionsInventory}
+              className="w-full"
             />
-            <Button>Search</Button>
           </div>
           <div className="flex justify-between pt-[24px]">
             <div className="w-full" style={{ maxWidth: 'calc(50% - 20px)' }}>
               <div className="pb-[16px]">
                 <p className="pb-[8px] text-left text-xl text-neutral-700">From</p>
                 <div className="rounded-xl bg-neutral-200">
-                  {dataLeft.map((item, index) => (
-                    <div key={index} className="p-[20px]">
-                      <p className="pb-[8px] text-left text-sm text-neutral-700">{item.label}</p>
-                      <Input
-                        style={{
-                          height: '40px',
-                          fontSize: '16px',
-                        }}
-                        className="mt-[8px]"
-                        value={item.value}
-                        disabled
-                        placeholder={item.label}
-                      />
-                    </div>
-                  ))}
+                  <div className="p-[20px]">
+                    <p className="pb-[8px] text-left text-sm text-neutral-700">{'Name'}</p>
+                    <p className="pb-[8px] text-left font-bold text-neutral-700">{dataLeft.name}</p>
+                    <p className="pb-[8px] text-left text-sm text-neutral-700">{'Product ID'}</p>
+                    <p className="pb-[8px] text-left font-bold text-neutral-700">
+                      {dataLeft.productID}
+                    </p>
+                    <p className="pb-[8px] text-left text-sm text-neutral-700">{'Weight'}</p>
+                    <p className="pb-[8px] text-left font-bold text-neutral-700">
+                      {dataLeft.totalWeight} Kg
+                    </p>
+                    <p className="pb-[8px] text-left text-sm text-neutral-700">{'Type'}</p>
+                    <p className="pb-[8px] text-left font-bold text-neutral-700">
+                      {dataLeft.Type}
+                    </p>{' '}
+                    <p className="pb-[8px] text-left text-sm text-neutral-700">{'Description'}</p>
+                    <p className="pb-[8px] text-left font-bold text-neutral-700">
+                      {dataLeft.description}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -145,7 +170,7 @@ const Shipment = () => {
                     <p className="pb-[8px] text-left text-sm text-neutral-700">Name</p>
                     <Input
                       className="mt-[8px]"
-                      placeholder="e.g. 0x2KWJEF29B28VD2HV2"
+                      placeholder="e.g. 0x2KWJE"
                       style={{
                         height: '40px',
                         fontSize: '16px',
@@ -168,10 +193,7 @@ const Shipment = () => {
             </div>
           </div>
           <div className="w-full justify-between pt-[16px] text-right">
-            <Button variant="secondary" style={{ padding: '8px', marginRight: '8px' }}>
-              Cancel
-            </Button>
-            <Button>Search</Button>
+            <Button>Send</Button>
           </div>
           <div className="flex w-full items-center justify-between pt-[60px]">
             <h2 className="text-3xl text-neutral-700">All Previous Distribution</h2>

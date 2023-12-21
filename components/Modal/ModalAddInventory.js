@@ -1,18 +1,26 @@
 // components/ModalAddInventory.js
 'use client'
-import { useState, useEffect } from 'react'
-import { Modal, Button, Input, Select } from 'antd'
+import { useState, useEffect, useMemo } from 'react'
+import { Modal, Button, Input, Select, notification } from 'antd'
 import { useGetProduct } from '@/hooks/products'
+import { useInventory } from '@/hooks/inventory'
 
 const ModalAddInventory = ({ visible, onCancel, onAddProduct }) => {
   const [idProduct, setIdProduct] = useState('')
   const [weight, setWeight] = useState('')
   const { data } = useGetProduct()
-  console.log(data)
+  const { mutate: AddInventory, isPending, isSuccess } = useInventory()
+  const [api, contextHolder] = notification.useNotification()
+  useEffect(() => {
+    if (isSuccess) {
+      api['success']({
+        message: 'Data Inventory Berhasil Ditambahkan',
+      })
+    }
+  }, [api, isSuccess])
 
   const handleIdProductChange = (e) => {
-    console.log(e)
-    setIdProduct(e.target.value)
+    setIdProduct(e)
   }
 
   const handleWeight = (e) => {
@@ -20,52 +28,57 @@ const ModalAddInventory = ({ visible, onCancel, onAddProduct }) => {
   }
 
   const handleAddProduct = () => {
-    const productData = {
-      idProduct,
-      weight,
-    }
+    const address = JSON.parse(localStorage.getItem('account')).userAddress
+    AddInventory({ address: address, productId: idProduct, weight, shipmentId: 0 })
   }
 
+  const product = useMemo(
+    () =>
+      data?.map((e) => ({
+        value: e.productID,
+        label: e.name,
+      })),
+    [data],
+  )
+
   return (
-    <Modal
-      title="Add Product"
-      open={visible}
-      onCancel={onCancel}
-      closable={true}
-      className="flex w-full flex-col"
-      footer={[
-        <Button
-          key="add"
-          type="primary"
-          className="rounded-[200px] bg-light-green-200 px-[24px] py-[2px] text-base text-neutral-700 transition duration-300 hover:bg-light-green-300 hover:text-neutral-700 focus:outline-none"
-          style={{ border: 'none' }}
-          onClick={handleAddProduct}
-        >
-          Add
-        </Button>,
-      ]}
-    >
-      <label htmlFor="idProduct">Id Product:</label>
-      <Select
-        defaultValue="lucy"
-        style={{ width: '100%' }}
-        onChange={handleIdProductChange}
-        options={[
-          { value: 'jack', label: 'Jack' },
-          { value: 'lucy', label: 'Lucy' },
-          { value: 'Yiminghe', label: 'yiminghe' },
-          { value: 'disabled', label: 'Disabled', disabled: true },
+    <>
+      {contextHolder}
+      <Modal
+        title="Add Product"
+        open={visible}
+        onCancel={onCancel}
+        closable={true}
+        className="flex w-full flex-col"
+        footer={[
+          <Button
+            key="add"
+            type="primary"
+            className="rounded-[200px] bg-light-green-200 px-[24px] py-[2px] text-base text-neutral-700 transition duration-300 hover:bg-light-green-300 hover:text-neutral-700 focus:outline-none"
+            style={{ border: 'none' }}
+            onClick={handleAddProduct}
+            loading={isPending}
+          >
+            Add
+          </Button>,
         ]}
-        className="w-full"
-      />
-      <label htmlFor="weight">Weight:</label>
-      <Input
-        placeholder="e.g. 200"
-        value={weight}
-        onChange={handleWeight}
-        style={{ marginBottom: '1rem' }}
-      />
-    </Modal>
+      >
+        <label htmlFor="idProduct">Id Product:</label>
+        <Select
+          style={{ width: '100%' }}
+          onChange={handleIdProductChange}
+          options={product}
+          className="w-full"
+        />
+        <label htmlFor="weight">Weight:</label>
+        <Input
+          placeholder="e.g. 200"
+          value={weight}
+          onChange={handleWeight}
+          style={{ marginBottom: '1rem' }}
+        />
+      </Modal>
+    </>
   )
 }
 

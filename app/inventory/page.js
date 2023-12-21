@@ -92,7 +92,7 @@ const dataDestination = [
 const Inventory = () => {
   const modalRef = useRef(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const { data: dataInventory } = useGetInventory()
+  const { data: dataInventory, refetch } = useGetInventory()
 
   const handleAddItemClick = () => {
     setIsModalVisible(true)
@@ -129,7 +129,9 @@ const Inventory = () => {
             Monitor your products journey from now!
           </p>
           <div className="mt-[60px] flex w-full items-center justify-between">
-            <h2 className="text-3xl text-neutral-700">My Inventory</h2>
+            <button type="button" onClick={() => refetch} className="text-3xl text-neutral-700">
+              My Inventory
+            </button>
             <button
               className="rounded-[200px] bg-light-green-200 px-[24px] py-[8px] text-base text-neutral-700 transition duration-300 hover:bg-light-green-300 focus:outline-none"
               onClick={handleAddItemClick}

@@ -1,11 +1,10 @@
-'use client'
 import { useQuery } from '@tanstack/react-query'
 
 import { axios } from '../../lib/axios'
 
 export const useGetPerson = (id) => {
   return useQuery({
-    queryKey: ['person'],
+    queryKey: ['person', id],
     queryFn: async () => {
       if (id === '') return
       const res = await axios.get(`/person/${id}`)
