@@ -1,11 +1,11 @@
-// components/AddProductModal.js
+// components/ModalAddItem.js
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Modal, Button, Input } from 'antd';
 
-const AddProductModal = ({ visible, onCancel, onAddProduct }) => {
+const ModalAddItem = ({ visible, onCancel, onAddProduct }) => {
   const [idProduct, setIdProduct] = useState('');
-  const [idBefore, setIdBefore] = useState('');
+  const [idBefore, setIdBefore] = useState('null');
   const [name, setName] = useState('');
   const [changePercent, setChangePercent] = useState('');
   const [type, setType] = useState('');
@@ -15,7 +15,25 @@ const AddProductModal = ({ visible, onCancel, onAddProduct }) => {
     setIdProduct(e.target.value);
   };
 
-  // Implement other onChange handlers for other inputs similarly
+  const handleIdBeforeChange = (e) => {
+    setIdBefore(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleChangePercentChange = (e) => {
+    setChangePercent(e.target.value);
+  };
+
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
 
   const handleAddProduct = () => {
     const productData = {
@@ -36,28 +54,88 @@ const AddProductModal = ({ visible, onCancel, onAddProduct }) => {
     }
   };
 
+  useEffect(() => {
+    if (visible) {
+      // Reset input fields when modal becomes visible
+      setIdProduct(generateId());
+      setIdBefore('null');
+      setName('');
+      setChangePercent('');
+      setType('');
+      setDescription('');
+    }
+  }, [visible]);
+
+  const generateId = () => {
+    // Logika untuk menghasilkan ID secara otomatis
+    // Misalnya, menggunakan angka acak atau menambahkan nomor berdasarkan jumlah data yang ada
+    return `Agrc-${Math.floor(Math.random() * 1000)}`;
+  };
+
+
   return (
     <Modal
-      title="Add Product"
-      visible={visible}
-      closable={false} // Menonaktifkan tombol close
-      footer={[
-        <Button key="add" type="primary" onClick={handleAddProduct}>
-          Add
-        </Button>,
-      ]}
+        title="Add Product"
+        open={visible}
+        onCancel={onCancel}
+        closable={true}
+        footer={[
+            <Button 
+                key="add" 
+                type="primary" 
+                className="bg-light-green-200 text-base text-neutral-700 px-[24px] py-[2px] rounded-[200px] focus:outline-none transition duration-300 hover:bg-light-green-300 hover:text-neutral-700"
+                style={{ border: 'none' }}
+                onClick={handleAddProduct}>
+                    Add
+            </Button>,
+        ]}
     >
-      {/* Input fields for adding product */}
-      {/* Example: */}
+        <label htmlFor="idProduct">Id Product:</label>
       <Input
-        placeholder="Id Product"
+        placeholder="Generate Address"
         value={idProduct}
+        disabled
         onChange={handleIdProductChange}
         style={{ marginBottom: '1rem' }}
       />
-      {/* Add other input fields similarly */}
+        <label htmlFor="idBefore">Id Before:</label>
+      <Input
+        placeholder="e.g. Agrc-3"
+        value={idBefore}
+        disabled
+        onChange={handleIdBeforeChange}
+        style={{ marginBottom: '1rem' }}
+      />
+        <label htmlFor="name">Product Name:</label>
+      <Input
+        placeholder="e.g. Asian Rice"
+        value={name}
+        onChange={handleNameChange}
+        style={{ marginBottom: '1rem' }}
+      />
+        <label htmlFor="changePercent">Change Percent:</label>
+      <Input
+        placeholder="e.g. 15%"
+        value={changePercent}
+        onChange={handleChangePercentChange}
+        style={{ marginBottom: '1rem' }}
+      />
+         <label htmlFor="type">Type:</label>
+      <Input
+        placeholder="e.g. Agriculture Food"
+        value={type}
+        onChange={handleTypeChange}
+        style={{ marginBottom: '1rem' }}
+      />
+        <label htmlFor="description">Description:</label>
+      <Input
+        placeholder="A seed of the grass species Oryza sativa or, much less commonly, O. glaberrima."
+        value={description}
+        onChange={handleDescriptionChange}
+        style={{ marginBottom: '1rem' }}
+      />
     </Modal>
   );
 };
 
-export default AddProductModal;
+export default ModalAddItem;
