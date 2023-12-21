@@ -1,8 +1,10 @@
-// pages/Landing.js
+'use client'
+
 import React from 'react'
 import Button from '../../components/Button/Button'
 import { Table, Input } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
+import { useGetContacts } from '@/hooks/account'
 
 const columnsAccount = [
   {
@@ -125,6 +127,7 @@ const dataAccount = [
 ]
 
 const Account = () => {
+  const { data: contactData } = useGetContacts()
   return (
     <div className="h-screen bg-neutral-100">
       <Navbar />
@@ -165,7 +168,7 @@ const Account = () => {
             />
           </div>
           <div className="flex w-full items-center justify-between pt-[60px]">
-            <h2 className="text-3xl text-neutral-700">Agrichain Account</h2>
+            <h2 className="text-3xl text-neutral-700">Agrichain Contact</h2>
           </div>
           <div className="overflow-x-auto pb-[60px] pt-[24px]">
             <Table
