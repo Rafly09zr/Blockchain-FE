@@ -1,6 +1,6 @@
 // pages/inventory.js
 'use client'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react'
 import Button from '../../components/Button/Button'
 import Image from 'next/image'
 import { Table, Input, Tag } from 'antd'
@@ -89,10 +89,61 @@ const dataDestination = [
   },
 ]
 
+const expandedRowRender = (record) => {
+  const coloum = [
+    {
+      title: 'ID',
+      key: 'shipmentID',
+      dataIndex: 'shipmentID',
+    },
+    {
+      title: 'From',
+      key: 'from',
+      dataIndex: 'fromAddress',
+    },
+    {
+      title: 'ID Product',
+      key: 'IdProduct',
+      dataIndex: 'productID',
+    },
+    {
+      title: 'Weight',
+      dataIndex: 'weight',
+      key: 'Weight',
+      render: (e) => <p>{e} Kg</p>,
+    },
+    {
+      title: 'Buy Price',
+      key: 'Buy',
+      dataIndex: 'buyPrice',
+    },
+    {
+      title: 'Timestamp',
+      dataIndex: 'timestamp',
+      key: 'TimeStamp',
+      render: (e) => {
+        const date = new Date(e)
+        return <p>{date?.toISOString()}</p>
+      },
+    },
+  ]
+
+  return <Table columns={coloum} dataSource={record?.productRecords} />
+}
+
 const Inventory = () => {
   const modalRef = useRef(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const { data: dataInventory, refetch } = useGetInventory()
+  const memoDataInventory = useMemo(
+    () =>
+      dataInventory?.map((e) => ({
+        ...e,
+        key: e.productID,
+      })),
+    [dataInventory],
+  )
+  console.log(memoDataInventory)
 
   const handleAddItemClick = () => {
     setIsModalVisible(true)
@@ -145,10 +196,8 @@ const Inventory = () => {
                 columns={columnsInventory}
                 dataSource={dataInventory}
                 expandable={{
-                  expandedRowRender: (record) => (
-                    <p style={{ margin: 0 }}>{record?.productRecords}</p>
-                  ),
-                  rowExpandable: (record) => record?.productRecords?.length === 0,
+                  expandedRowRender,
+                  rowExpandable: (record) => record?.productRecords?.length !== 0,
                 }}
                 scroll={{ x: true }}
                 style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
@@ -180,7 +229,7 @@ const Inventory = () => {
             <div className="table-container w-full">
               <Table
                 columns={columnsDestination}
-                dataSource={dataDestination}
+                dataSource={memoDataInventory}
                 scroll={{ x: true }}
                 style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
               />

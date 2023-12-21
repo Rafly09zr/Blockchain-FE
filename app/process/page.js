@@ -102,7 +102,6 @@ const Process = () => {
   )
   const handleChange = (events) => {
     setDataLeft(dataInventory?.filter((e) => e.productID === events)[0])
-    console.log('REFETCH', dataLeft?.productID)
     refetch
   }
 
