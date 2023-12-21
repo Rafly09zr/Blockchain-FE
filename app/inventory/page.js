@@ -1,9 +1,11 @@
 // pages/Landing.js
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import Button from '../../components/Button/Button';
 import Image from 'next/image';
 import { Table, Input, Tag } from 'antd';
 import Navbar from '../../components/Navbar/navbar';
+import AddProductModal from '../../components/Modal/ModalAddItem';
 
 const columnsInventory = [
   {
@@ -132,6 +134,15 @@ const dataDestination = [
 ];
 
 const Inventory = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleAddProduct = (productData) => {
+    // Logic to add the product using productData
+    console.log('Product Added:', productData);
+    setModalVisible(false); // Tutup modal setelah produk ditambahkan
+  };
+
   return (
     <div className='h-screen bg-neutral-100'>
       <Navbar/>
@@ -142,7 +153,7 @@ const Inventory = () => {
         <p className="max-w-[600px] min-h-[100px] text-base pt-[16px] pb-[16px] mx-auto text-neutral-600 mt-4">Efficiently manage your inventory using our blockchain-powered supply chain solution. Monitor your products journey from now!</p>
         <div className="mt-[60px] flex justify-between items-center w-full">
           <h2 className="text-3xl text-neutral-700">My Inventory</h2>
-          <Button>Add Product</Button>
+          <Button onClick={() => setModalVisible(true)}>Add Item</Button>
           </div>
           <div className="pt-[24px]">
           <div className="table-container w-full">
@@ -184,6 +195,11 @@ const Inventory = () => {
           </div>
       </div>
     </div>
+    <AddProductModal
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        onAddProduct={handleAddProduct}
+      />
     </div>
   );
 };
