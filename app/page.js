@@ -8,6 +8,11 @@ import Navbar from '../components/Navbar/navbar' // Sesuaikan dengan lokasi Navb
 import { useEffect } from 'react'
 
 const Landing = () => {
+
+  const redirectToInventory = () => {
+    window.location.href = '/inventory'; // Ganti dengan path yang sesuai
+  };
+
   const connectWallet = async () => {
     if (window.ethereum) {
       try {
@@ -50,7 +55,7 @@ const Landing = () => {
             Track each product’s journey from origin to destination securely and reliably with
             blockchain technology.
           </p>
-          <Button>Get Started</Button>
+          <Button onClick={redirectToInventory}>Get Started</Button>
           <div className="mx-auto mt-14 flex w-full justify-center">
             <Image src="/images/illus-landing2.png" width={1144} height={288} alt="404 text" />
           </div>
