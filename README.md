@@ -1,4 +1,4 @@
-# Agrichain
+# Agrichain-FE
 
 ## 🌾 About
 
@@ -8,8 +8,10 @@ Agrichain is an Agricultural Supply Chain Management application that leverages 
 
 - **Blockchain Transparency:** Utilizes blockchain to provide a transparent and secure view of the supply chain.
 - **Product Tracking:** Enables tracking the journey of each agricultural product, ensuring reliability and authenticity.
-- **Origin Verification:** Validates the origin of agricultural products to maintain quality standards.
-- **Distribution Management:** Efficiently manages the distribution process, enhancing reliability and traceability.
+- **Origin Record:** Validates the origin of agricultural products to maintain quality standards.
+- **Process or Change** Changing the product shapes based on the product that registered in Agrichain.
+- **Product Shipment** Efficiently manages the distribution process, enhancing reliability and traceability.
+- **Register Account Destination** To create a more secure distribution, sender must register their destination account.
 
 ## 🌱 Meet Our Team
 
@@ -18,9 +20,11 @@ Agrichain is an Agricultural Supply Chain Management application that leverages 
 
 
 ## 📑 Documentation
-FrontEnd: [Agrichain-fe](https://github.com/Rafly09zr/Blockchain-FE)
-BackEnd: [Agrichain-be](https://github.com/Harmerz/blockchain)
-Presentation Slide: [Short-presentation](https://www.canva.com/design/DAF3o6PTUtE/X302Zq5X2OtIka3uhAvYgA/edit?utm_content=DAF3o6PTUtE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- FrontEnd: [Agrichain-fe](https://github.com/Rafly09zr/Blockchain-FE)
+- BackEnd: [Agrichain-be](https://github.com/Harmerz/blockchain)
+- Presentation Slide: [Short-presentation](https://www.canva.com/design/DAF3o6PTUtE/X302Zq5X2OtIka3uhAvYgA/edit?utm_content=DAF3o6PTUtE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- Figjam: [Brainstroming](https://www.figma.com/file/Df3JYQogfPbUVmkdaGaYdI/Blockchain-Brainstorming?type=whiteboard&node-id=0%3A1&t=Rb8l6rpGb8NgIO6n-1)
+- Figma: [UI Design](https://www.figma.com/file/IA97p9OUfUIuUoJrDl0qQ1/Blockchain?type=design&node-id=16%3A221&mode=design&t=GTP9hz5UCTr981qx-1)
 
 ## 🛠️ Setup
 
@@ -30,3 +34,6 @@ Presentation Slide: [Short-presentation](https://www.canva.com/design/DAF3o6PTUt
 
 ```bash
 yarn install
+yarn build
+yarn start
+```
