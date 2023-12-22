@@ -114,14 +114,12 @@ function Shipment() {
           <div className="ml-[148px] mr-[148px] text-center">
             <h1 className="mx-auto pt-[60px] text-4xl text-neutral-700">Start Product Shipment</h1>
             <p className="mx-auto mt-4 min-h-[100px] max-w-[600px] pb-[16px] pt-[16px] text-base text-neutral-600">
-              Efficiently manage your inventory using our blockchain-powered supply chain solution.
-              Monitor your products journey from now!
+              Wanted to send your product to someone? Using our blockchain-powered supply chain solution it will reord your shipment easily.
             </p>
             <h2 className="mt-[60px] text-left text-3xl text-neutral-700">Send your Product</h2>
             <p className="pr-[80px] pt-[16px] text-left text-base text-neutral-600">
               {' '}
-              Track your product’s final destinations by entering its Id. Discover where your
-              product destination!
+              Firstly pick your product you wanted to send!
             </p>
             <div className="mt-[16px] flex w-full items-center justify-between">
               <Select

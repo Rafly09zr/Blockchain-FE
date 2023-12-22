@@ -91,7 +91,7 @@ const Track = () => {
         <div className="ml-[148px] mr-[148px] text-center">
           <h1 className="mx-auto pt-[60px] text-4xl text-neutral-700">Track your Product Origin</h1>
           <p className="mx-auto min-h-[100px] max-w-[600px] pb-[16px] pt-[16px]  text-base text-neutral-600">
-            Efficiently manage your inventory using our blockchain-powered supply chain solution.
+            With our blockchain-powered supply chain solution, you can track All of your Products.
             Monitor your products journey from now!
           </p>
           <h2 className="mt-[60px] text-left text-3xl text-neutral-700">

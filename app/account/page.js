@@ -136,10 +136,9 @@ const Account = () => {
       <div className="mx-auto flex h-fit w-full items-center justify-center bg-neutral-100">
         {/* <Navbar /> */}
         <div className="ml-[148px] mr-[148px] text-center">
-          <h1 className="mx-auto pt-[60px] text-4xl text-neutral-700">Find an Account Product</h1>
+          <h1 className="mx-auto pt-[60px] text-4xl text-neutral-700">Add an Account Contact</h1>
           <p className="mx-auto min-h-[100px] max-w-[600px] pb-[16px] pt-[16px]  text-base text-neutral-600">
-            Efficiently manage your inventory using our blockchain-powered supply chain solution.
-            Monitor your products journey from now!
+          Easily add friends, customers, or anyone you wish to send a product to through our blockchain-driven supply chain solution.
           </p>
           {/* <h2 className="mt-[60px] text-left text-3xl text-neutral-700">
             Search the Account Product

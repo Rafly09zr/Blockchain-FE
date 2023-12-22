@@ -132,16 +132,15 @@ const Process = () => {
               Process or Changes your Product
             </h1>
             <p className="mx-auto mt-4 min-h-[100px] max-w-[600px] pb-[16px] pt-[16px] text-base text-neutral-600">
-              Efficiently manage your inventory using our blockchain-powered supply chain solution.
-              Monitor your products journey from now!
+              Easily transform or process products into new ones using our blockchain-powered supply chain solution.
+              Monitor your Change from now!
             </p>
             <h2 className="mt-[60px] text-left text-3xl text-neutral-700">
               Find and Change Product
             </h2>
             <p className="pr-[80px] pt-[16px] text-left text-base text-neutral-600">
               {' '}
-              Track your product’s final destinations by entering its Id. Discover where your
-              product destination!
+              Firstly choose your Item inside your Inventory that you wanted to change or process into another product.
             </p>
             <div className="mt-[16px] flex w-full items-center justify-between">
               <Select
