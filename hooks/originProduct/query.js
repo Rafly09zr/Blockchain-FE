@@ -7,7 +7,7 @@ export const useGetOriginProduct = (id) => {
   return useQuery({
     queryKey: ['origin'],
     queryFn: async () => {
-      if (id === '') return
+      const id = JSON?.parse(localStorage?.getItem('account'))?.userAddress
       const res = await axios.get(`/origin/${id}`)
       return res.data
     },

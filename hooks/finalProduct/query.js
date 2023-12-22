@@ -7,7 +7,7 @@ export const useGetFinalProduct = (id) => {
   return useQuery({
     queryKey: ['final'],
     queryFn: async () => {
-      if (id === '') return
+      const id = JSON?.parse(localStorage?.getItem('account'))?.userAddress
       const res = await axios.get(`/final/${id}`)
       return res.data
     },

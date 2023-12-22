@@ -67,7 +67,7 @@ function Shipment() {
     if (isSuccess) {
       refetch
       api['success']({
-        message: 'Product Berhasil Dikirimkan kepada' + contact,
+        message: 'Product Berhasil Dikirimkan kepada ' + contact,
       })
     }
   }, [api, contact, isSuccess, refetch])

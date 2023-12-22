@@ -1,19 +1,21 @@
-// pages/Landing.js
+'use client'
+
 import React from 'react'
 import Button from '../../components/Button/Button'
 import { Table, Input } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
+import { useGetOriginProduct } from '@/hooks/originProduct'
 
 const columnsOrigin = [
   {
-    title: 'Id Product',
-    dataIndex: 'idProduct',
+    title: 'Id Shipment',
+    dataIndex: 'shipmentID',
     key: 'idProduct',
     // render: (text) => text,
   },
   {
     title: 'Product Name',
-    dataIndex: 'Name',
+    dataIndex: 'name',
     key: 'Name',
   },
   {
@@ -23,23 +25,28 @@ const columnsOrigin = [
   },
   {
     title: 'From',
-    dataIndex: 'idFrom',
+    dataIndex: 'fromAddress',
     key: 'idFrom',
   },
   {
     title: 'To',
-    dataIndex: 'idTo',
+    dataIndex: 'toAddress',
     key: 'idTo',
   },
   {
     title: 'Weight',
-    dataIndex: 'Weight',
+    dataIndex: 'weight',
     key: 'Weight',
+    render: (e) => <p>{e} Kg</p>,
   },
   {
     title: 'Timestamp',
-    dataIndex: 'TimeStamp',
+    dataIndex: 'timestamp',
     key: 'TimeStamp',
+    render: (e) => {
+      const date = new Date(e)
+      return <p>{date?.toISOString()}</p>
+    },
   },
   {
     title: 'Buy Price',
@@ -74,6 +81,8 @@ const dataOrigin = [
 ]
 
 const Track = () => {
+  const { data: TrackOrigin } = useGetOriginProduct()
+  console.log(TrackOrigin)
   return (
     <div className="h-screen bg-neutral-100">
       <Navbar />
@@ -111,7 +120,7 @@ const Track = () => {
           <div className="overflow-x-auto pb-[60px] pt-[24px]">
             <Table
               columns={columnsOrigin}
-              dataSource={dataOrigin}
+              dataSource={TrackOrigin}
               scroll={{ x: 'max-content' }}
               style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
             />

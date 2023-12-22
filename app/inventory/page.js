@@ -7,6 +7,7 @@ import { Table, Input, Tag } from 'antd'
 import Navbar from '../../components/Navbar/navbar'
 import ModalAddInventory from '../../components/Modal/ModalAddInventory'
 import { useGetInventory } from '@/hooks/inventory'
+import { useGetFinalProduct } from '@/hooks/finalProduct'
 
 const columnsInventory = [
   {
@@ -39,19 +40,14 @@ const columnsInventory = [
 
 const columnsDestination = [
   {
-    title: 'Id Origin',
-    dataIndex: 'idFrom',
-    key: 'idFrom',
+    title: 'Id Shipment',
+    dataIndex: 'shipmentID',
+    key: 'idProduct',
     // render: (text) => text,
   },
   {
-    title: 'Id Destination',
-    dataIndex: 'idTo',
-    key: 'idTo',
-  },
-  {
     title: 'Product Name',
-    dataIndex: 'Name',
+    dataIndex: 'name',
     key: 'Name',
   },
   {
@@ -60,32 +56,34 @@ const columnsDestination = [
     key: 'Type',
   },
   {
-    title: 'Weight',
-    key: 'Weight',
-    dataIndex: 'Weight',
+    title: 'From',
+    dataIndex: 'fromAddress',
+    key: 'idFrom',
   },
   {
-    title: 'Buy Price',
-    key: 'buyPrice',
-    dataIndex: 'buyPrice',
+    title: 'To',
+    dataIndex: 'toAddress',
+    key: 'idTo',
+  },
+  {
+    title: 'Weight',
+    dataIndex: 'weight',
+    key: 'Weight',
+    render: (e) => <p>{e} Kg</p>,
   },
   {
     title: 'Timestamp',
-    key: 'Timestamp',
-    dataIndex: 'Timestamp',
+    dataIndex: 'timestamp',
+    key: 'TimeStamp',
+    render: (e) => {
+      const date = new Date(e)
+      return <p>{date?.toISOString()}</p>
+    },
   },
-]
-
-const dataDestination = [
   {
-    key: '1',
-    idFrom: '0x123ABC',
-    idTo: '0x456DEF',
-    Name: 'Rice',
-    Type: 'Agriculture',
-    Weight: '10kg',
-    buyPrice: '$20',
-    Timestamp: '2023-12-01 08:30:00',
+    title: 'Buy Price',
+    dataIndex: 'buyPrice',
+    key: 'buyPrice',
   },
 ]
 
@@ -122,7 +120,7 @@ const expandedRowRender = (record) => {
       dataIndex: 'timestamp',
       key: 'TimeStamp',
       render: (e) => {
-        const date = new Date(e)
+        const date = new Date(e ?? '')
         return <p>{date?.toISOString()}</p>
       },
     },
@@ -135,6 +133,7 @@ const Inventory = () => {
   const modalRef = useRef(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const { data: dataInventory, refetch } = useGetInventory()
+  const { data: dataFinal } = useGetFinalProduct()
   const memoDataInventory = useMemo(
     () =>
       dataInventory?.map((e) => ({
@@ -197,7 +196,7 @@ const Inventory = () => {
                 dataSource={dataInventory}
                 expandable={{
                   expandedRowRender,
-                  rowExpandable: (record) => record?.productRecords?.length !== 0,
+                  rowExpandable: (record) => record?.productRecords[0]?.shipmentID,
                 }}
                 scroll={{ x: true }}
                 style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
@@ -229,7 +228,7 @@ const Inventory = () => {
             <div className="table-container w-full">
               <Table
                 columns={columnsDestination}
-                dataSource={memoDataInventory}
+                dataSource={dataFinal}
                 scroll={{ x: true }}
                 style={{ minWidth: '1144px' }} // Atur lebar minimal yang diinginkan
               />
