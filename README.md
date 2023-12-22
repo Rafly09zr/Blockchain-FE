@@ -18,7 +18,9 @@ Agrichain is an Agricultural Supply Chain Management application that leverages 
 
 
 ## 📑 Documentation
-
+FrontEnd: [Agrichain-fe](https://github.com/Rafly09zr/Blockchain-FE)
+BackEnd: [Agrichain-be](https://github.com/Harmerz/blockchain)
+Presentation Slide: [Short-presentation](https://www.canva.com/design/DAF3o6PTUtE/X302Zq5X2OtIka3uhAvYgA/edit?utm_content=DAF3o6PTUtE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## 🛠️ Setup
 
