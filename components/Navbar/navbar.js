@@ -105,8 +105,11 @@ const Navbar = () => {
       </div>
       <div>
         {walletAddress ? (
-          <div className="h-[40px] w-[172px] truncate rounded-[200px] border bg-neutral-700 px-[24px] py-[8px] text-base text-neutral-100 hover:bg-neutral-600">
-            {walletAddress}
+          <div className="flex flex-row items-center gap-3">
+            <div className="h-[40px] w-[172px] truncate rounded-[200px] border bg-neutral-700 px-[24px] py-[8px] text-base text-neutral-100 hover:bg-neutral-600">
+              {walletAddress}
+            </div>
+            <div className="text-black">{JSON?.parse(localStorage?.getItem('account'))?.name}</div>
           </div>
         ) : (
           <button
